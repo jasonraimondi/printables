@@ -26,11 +26,10 @@ module base(center=true) {
 }
 
 
-module wall(with_title=false,with_openings=false) {
+module wall(with_openings=false) {
     thickness = 4;
 
-    base_width = 66;
-    base_depth = 63;
+    base_width = 74;
     
     wall_height = 40;
 
@@ -43,10 +42,7 @@ module wall(with_title=false,with_openings=false) {
             translate([10,-3,10]) cube([10, 10, 25]);
             translate([14 + (base_width / 2),-3,10]) cube([10, 10, 25]);
         }
-        
-        if (with_title) {
-            translate([23.5, 0, 36]) rotate([90,0,0]) text("WLED", size=5);
-        }
+
 
     }
 }
@@ -54,24 +50,34 @@ module wall(with_title=false,with_openings=false) {
 module side_wall() {
     thickness = 4;
 
-    base_width = 66;
-    base_depth = 63;
+    base_width = 74;
+    base_depth = 65;
     
     wall_height = 40;
     
     difference() {
         cube([thickness, base_depth + thickness * 2, wall_height + thickness]);
-        translate([2,2.5,40]) cylinder(h=5, d=3);
-        translate([2,68.5,40]) cylinder(h=5, d=3);
+        //translate([2,2.5,40]) cylinder(h=5, d=3);
+        //translate([2,68.5,40]) cylinder(h=5, d=3);
     }  
  }
 
 
+base_width = 74;
+base_depth = 69;
+base_height = 4;
+
 base();
-translate([0,-4,0]) wall(with_title=true, with_openings=true);
-translate([0,63,0]) wall();
-translate([-4,-4,0]) side_wall();
-translate([66,-4,0]) side_wall();
+
+difference() {
+translate([-4, -4, 0]) cube([base_width, base_depth, base_height]);
+    translate([0,0,-2]) cube([base_width-9, base_depth-10, 15]);
+}
+
+translate([-4,-5,0]) wall(with_title=true, with_openings=true);
+translate([-4,64,0]) wall();
+translate([-5,-5,0]) side_wall();
+translate([69,-5,0]) side_wall();
 
 
 echo(version=version());
