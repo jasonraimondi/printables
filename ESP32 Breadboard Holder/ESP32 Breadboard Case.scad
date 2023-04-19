@@ -61,8 +61,8 @@ module side_wall() {
     
     difference() {
         cube([thickness, base_depth + thickness * 2, wall_height + thickness]);
-        translate([2,2,40]) cylinder(h=5, diameter=3);
-        translate([2,68,40]) cylinder(h=5, diameter=3);
+        translate([2,2.5,40]) cylinder(h=5, d=3);
+        translate([2,68.5,40]) cylinder(h=5, d=3);
     }  
  }
 
