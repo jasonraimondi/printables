@@ -4,7 +4,7 @@ pin_widths=63;
 pin_depth=60;
 base_thickness = 4;
 pin_d = 3;
-case_height = 30;
+case_height = 40;
 power_opening = 8;
 
 module pegs() {
@@ -57,37 +57,26 @@ module inset() {
     }
 }
 
+module power_hole(diameter=8) {
+    $fn=15;
+    height = 100;
+    
+    rotate([90,0,0]) translate([diameter, (case_height * 2/3) + 4,-(height - 10)]) cylinder(h=height,d=diameter);
+   
+    rotate([90,0,0]) translate([pin_widths - diameter, (case_height * 2/3) + 4,-(height - 10)]) cylinder(h=height,d=diameter);
+}
+
 module case() {
     difference() {
         shell();
         inset();
         pegs();
         air_holes();
-    }
-}
-
-module lid() {
-    module top() {
-        linear_extrude(height=base_thickness) 
-        minkowski() {
-            square([pin_widths, pin_depth]);
-            circle(6);
-        }
-        linear_extrude(height=(base_thickness + 2)) 
-        minkowski() {
-            square([pin_widths, pin_depth]);
-            circle(2.5);
-        }
-    }
-
-    difference() {
-        top();
-        translate([10, 7, 1]) rotate([180]) linear_extrude(height=(base_thickness)) text("WLED");
-        air_holes();
+        power_hole(diameter=8);
     }
 }
 
 case();
-translate([80,0,0]) lid();
+
 
 echo(version=version());
