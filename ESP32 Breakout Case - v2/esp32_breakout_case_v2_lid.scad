@@ -23,7 +23,8 @@ module lid() {
 
     difference() {
         top();
-        translate([10, 7, 1]) rotate([180]) linear_extrude(height=(base_thickness)) text("WLED");
+        translate([0,0,-1]) cylinder(h=10,d=5);
+        translate([pin_widths/2,-3,11.5]) rotate([90,0,0]) cylinder(h=10,d=20);
     }
 }
 
