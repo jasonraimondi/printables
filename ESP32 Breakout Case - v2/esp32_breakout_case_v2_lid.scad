@@ -17,7 +17,7 @@ module lid() {
         linear_extrude(height=(base_thickness + 2)) 
         minkowski() {
             square([pin_widths, pin_depth]);
-            circle(2.5);
+            circle(3);
         }
     }
 
