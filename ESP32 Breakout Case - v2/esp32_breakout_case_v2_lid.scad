@@ -23,7 +23,7 @@ module lid() {
 
     difference() {
         top();
-        translate([0,0,-1]) cylinder(h=10,d=5);
+        translate([4,4,-1]) cylinder(h=10,d=8);
         translate([pin_widths/2,-3,11.5]) rotate([90,0,0]) cylinder(h=10,d=20);
     }
 }

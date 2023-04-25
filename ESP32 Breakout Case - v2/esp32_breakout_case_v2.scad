@@ -3,19 +3,21 @@ $fn=10;
 pin_widths=63;
 pin_depth=60;
 base_thickness = 4;
+pin_height = 6;
+pin_d_base = 5;
 pin_d = 3;
 case_height = 40;
 power_opening = 8;
 
 module pegs() {
     module peg() {
-        translate([pin_d/2,pin_d/2,0])
-        linear_extrude(height = 100, center=true) 
-        circle(d=pin_d, $fn=15);
+        translate([pin_d/2, pin_d/2, base_thickness]) {
+            linear_extrude(height = 2, center=true) circle(d=pin_d_base + 3, $fn=15);
 
-        translate([pin_d/2,pin_d/2,0])
-        linear_extrude(height = 2, center=true) 
-        circle(d=pin_d + 3, $fn=15);
+            difference() {
+                linear_extrude(height = pin_height) circle(d=pin_d_base, $fn=15);            linear_extrude(height = 20, center=true) circle(d=pin_d, $fn=15);
+            }
+        }
     }
 
     peg();
@@ -66,17 +68,19 @@ module power_hole(diameter=8) {
     rotate([90,0,0]) translate([pin_widths - diameter, (case_height * 2/3) + 4,-(height - 10)]) cylinder(h=height,d=diameter);
 }
 
-module case() {
+module case(with_top_notch=true) {
     difference() {
         shell();
         inset();
-        pegs();
         air_holes();
         power_hole(diameter=8);
+        if (with_top_notch) {
+            translate([pin_widths/2,0,45]) rotate([90,0,0]) cylinder(h=10,d=20);
+        }
     }
+    pegs();
 }
 
-case();
-
+case(with_top_notch=true);
 
 echo(version=version());
