@@ -1,4 +1,4 @@
-include <BOSL2/std.scad>
+include <BOSL2/std.scad>;
 include <./air_holes.scad>;
 include <./pegs.scad>;
 
@@ -27,9 +27,11 @@ module bottom() {
         }
     }
 
+    pegs(is_holed=false);
+
     difference() {
         top();
-        pegs();
+        pegs(is_holed=true);
         air_holes();
     }
 }
