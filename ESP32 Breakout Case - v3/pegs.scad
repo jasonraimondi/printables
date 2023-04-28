@@ -1,8 +1,10 @@
 include <BOSL2/std.scad>;
 
 module pegs(is_holed=true) {
+    standoff_inner_mm = 6;
+
     module standoff() { 
-        cylinder(h=10, d=5, $fn=6);
+        cylinder(h=10, d=standoff_inner_mm, $fn=6);
     }
 
     module screw_holes(is_holed=is_holed) {        
@@ -21,7 +23,7 @@ module pegs(is_holed=true) {
 
     module standoff_holder() {
         module standoff_outer() {
-            cylinder(h=4, d=8, $fn=6);
+            cylinder(h=4, d=standoff_inner_mm + 2, $fn=6);
         }
 
         translate([pin_d/2,pin_d/2,base_thickness]) difference() {
