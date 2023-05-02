@@ -16,4 +16,4 @@
 
 ![Breakout Case](./images/final_led_adapter_2.jpg)
 
-![Breakout Case](./images/final_power_snap.jpg)
+![Breakout Case](./images/final_power_snap_1.jpg)
