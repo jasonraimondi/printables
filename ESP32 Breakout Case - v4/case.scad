@@ -1,5 +1,4 @@
 include <./standoff.scad>;
-include <./plug.scad>;
 
 $fn=10;
 
@@ -25,45 +24,57 @@ module air_holes(pin_widths = PIN_WIDTHS, pin_depth = PIN_DEPTH) {
 }
 
 module case(case_height = CASE_HEIGHT, pin_widths = PIN_WIDTHS, pin_depth = PIN_DEPTH, base_thickness = BASE_THICKNESS) {
-    module power_hole(diameter = POWER_OPENING) {
-        $fn=15;
-        height = 100;
-        
-        rotate([90,0,0]) translate([pin_widths / 2, (case_height * 2/3) + 4, -(height - 10)]) cylinder(h=height,d=diameter);
-    }
+    module shell() {
+        difference() {
+            union() {
+                linear_extrude(height=case_height) 
+                minkowski() {
+                    square([pin_widths, pin_depth]);
+                    circle(6);
+                }
+            }
 
-    module power_holder() {
-        translate([(PIN_WIDTHS / 2) - (POWER_OPENING / 2), -3, ((CASE_HEIGHT * 2/3) + 4) - POWER_OPENING / 2]) square([10, 22]);
-    }
-
-    difference() {
-        union() {
+            translate([0,0,base_thickness])
             linear_extrude(height=case_height) 
             minkowski() {
                 square([pin_widths, pin_depth]);
-                circle(6);
+                circle(3);
             }
+            
+            power_cutout();
+            cord_hole(opening=10);
+            air_holes();
         }
-
-        translate([0,0,base_thickness])
-        linear_extrude(height=case_height) 
-        minkowski() {
-            square([pin_widths, pin_depth]);
-            circle(3);
-        }
-
-        power_hole();
-        air_holes();
     }
 
-    echo("TODO ADD POWER HOLDER");
-    // power_holder();
+    module power_cutout() {
+        plate_x = 15.5;
+        plate_y = 18.5;
+        
+        translate([0,-10,case_height - plate_y]) linear_extrude(height=plate_y) square([plate_x,10]);
+    }
+    
+    module cord_hole(opening = 10) {
+        height = 20;
+
+        translate([pin_widths/2, pin_depth + 10, case_height]) {
+            translate([0, 0, -opening]) 
+            rotate([90,0,0]) 
+            color("brown") 
+            cylinder(d=opening,h=height, center=true);
+
+            cube([3, height, opening + 1], center=true);
+        }
+    }
+
+    difference() {
+        shell();
+        pegs(with_standoff_cutout = true);
+    }
+    
+    translate([ 0, 0, BASE_THICKNESS]) pegs(type="standoff_holder");
 }
 
-difference() {
-    case();
-    pegs(with_standoff_cutout = true);
-}
-translate([0,0,BASE_THICKNESS]) pegs(type="standoff_holder");
+case();
 
 echo(version=version());

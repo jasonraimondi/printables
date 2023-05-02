@@ -1,5 +1,3 @@
-include <BOSL2/std.scad>;
-
 BASE_THICKNESS = 4;
 PIN_HEIGHT = 6;
 PIN_DIAMETER = 3;
