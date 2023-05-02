@@ -10,7 +10,7 @@ module power_snap(power_opening = POWER_OPENING, wall_thickness = WALL_THICKNESS
         
         difference() {
             translate([x/2,0,0]) linear_extrude(height=wall_thickness) square([plate_x + x,plate_y], center=true);
-            linear_extrude(height=wall_thickness) circle(d=power_opening, center=true, $fn=20);
+            translate([1,0,0]) linear_extrude(height=wall_thickness) circle(d=power_opening, center=true, $fn=20);
         }
     }
     
