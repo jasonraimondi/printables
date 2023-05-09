@@ -25,7 +25,7 @@ module lid(lid_z = LID_THICKNESS, notch_z = NOTCH_THICKNESS) {
     }
 
     module _power_snap() {
-        translate([61.9,-13.2, 8]) rotate([-90,90,0]) power_snap();
+        translate([61.9,-13.2, 7]) rotate([-90,90,0]) power_snap();
     }
 
     union() {
