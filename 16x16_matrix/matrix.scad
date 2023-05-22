@@ -5,7 +5,7 @@ MATRIX_Z = 8;
 module flat_bottom() {
     minkowski() {
         square(MATRIX_X);
-        circle(LAYER_HEIGHT, $fn=10);    
+        circle(d=2, $fn=10);    
     }
 }
 
@@ -24,13 +24,10 @@ module walls() {
     }
 }
 
-module notch() {
-    NOTCH_OFFSET = 2.5;
-    NOTCH_WIDTH = 2.5;
-    
-    translate([0, 0, LAYER_HEIGHT+NOTCH_OFFSET]) linear_extrude(1) difference() {
+module notch(size) {
+    translate([0, 0, LAYER_HEIGHT+size]) linear_extrude(1) difference() {
         flat_bottom();
-        translate([NOTCH_WIDTH, NOTCH_WIDTH, 0]) square(MATRIX_X - (NOTCH_WIDTH * 2));
+        translate([size, size, 0]) square(MATRIX_X - (size * 2));
     }
 }
 
@@ -38,7 +35,9 @@ FLATTY = 0.4;
 union() {
     translate([0,0,FLATTY]) union() {
         walls();
-        notch();
+        for (size = [0.5:0.25:2.5]) {
+            notch(size);
+        }
         linear_extrude(LAYER_HEIGHT) difference() {
             flat_bottom();
             translate([3.75, 3.75,0]) led_slots();
