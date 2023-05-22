@@ -1,10 +1,10 @@
 # Printables
 
-Some very elementary OpenSCAD models.
+Some of my custom printable 3d models.
 
 ## ESP32 Breakout Case
 
-![ESP32 Breakout Case](./esp32_breakout_case_power_snap/images/final_top.jpg)
+<img alt="ESP32 Breakout Case" src="./esp32_breakout_case_power_snap/images/final_top.jpg" width="500" />
 
  - ESP32 30 pin: https://www.aliexpress.us/item/3256804992462822.html
  - Breakout Board: https://www.amazon.com/dp/B0BQ2N4MSZ
@@ -13,4 +13,4 @@ Some very elementary OpenSCAD models.
 
 ## Pooped Bag Holder
 
-![Pooped Bag Holder](./pooped_bag_holder/pooped_bag_holder.jpg)
+<img alt="Pooped Bag Holder" src="./pooped_bag_holder/pooped_bag_holder.jpg" width="500" />
