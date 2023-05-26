@@ -1,5 +1,5 @@
 module shell(wall_width, lip_width, z) {
-    matrix_size = 163.5;
+    matrix_size = 162.75;
     shell_size = matrix_size + (wall_width * 2);
     lip_size = matrix_size - (lip_width * 2);
     
@@ -20,12 +20,23 @@ module shell(wall_width, lip_width, z) {
                 square(shell_size);
                 circle(d=4, $fn=10);    
             }
-            
+
             translate([wall_width + lip_width, wall_width + lip_width, 0])
             linear_extrude(z) 
             minkowski() {
                 square([lip_size, lip_size]);
                 circle(d=2, $fn=10);    
+            }
+            
+            layers = 3;
+            
+            for (x = [1:layers]) {
+                translate([wall_width + lip_width/x, wall_width + lip_width/x, x/layers])
+                linear_extrude(z) 
+                minkowski() {
+                    square([lip_size, lip_size]);
+                    circle(d=x, $fn=10);    
+                }
             }
             
             translate([wall_width, wall_width, wall_width])
@@ -52,7 +63,7 @@ module shell(wall_width, lip_width, z) {
 }
 
 WIDTH = 1.2;
-LIP= 1.2;
+LIP= 1;
 Z = 40;
 
 shell(WIDTH, LIP, Z);
