@@ -1,4 +1,4 @@
-LAYER_HEIGHT = 0.2;
+LAYER_HEIGHT = 0.28;
 BOTTOM_LAYER = LAYER_HEIGHT * 4;
 
 MATRIX_X = 162.5;
@@ -34,7 +34,7 @@ module notch(size) {
 }
 
 union() {
-    translate([0,0,LAYER_HEIGHT]) union() {
+    translate([0,0,BOTTOM_LAYER]) union() {
         walls();
         start = LAYER_HEIGHT;
         step = LAYER_HEIGHT/2;
@@ -47,5 +47,5 @@ union() {
             translate([3.75, 3.75,0]) led_slots();
         }
     }
-    linear_extrude(LAYER_HEIGHT) flat_bottom();
+    linear_extrude(BOTTOM_LAYER) flat_bottom();
 }
