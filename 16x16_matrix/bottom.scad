@@ -37,13 +37,18 @@ module shell(wall_width, lip_width, z) {
                 }
                 frame();
             }
-
-            translate([wall_width + lip_width, wall_width + lip_width, 0])
-            linear_extrude(z) 
-            minkowski() {
-                square([lip_size, lip_size]);
-                circle(d=4, $fn=10);    
+            
+            for (x = [0:lip_width]) {
+                shift = wall_width + lip_width;
+                translate([shift, shift, (x/wall_width)])
+                linear_extrude(z) 
+                minkowski() {
+                    square([lip_size, lip_size]);
+                    circle(d=7+x, $fn=10);    
+                } 
             }
+
+
             
             translate([wall_width, wall_width, wall_width])
             linear_extrude(z) 
@@ -74,7 +79,7 @@ module shell(wall_width, lip_width, z) {
 }
 
 WIDTH = 0.28 * 8;
-LIP= 2;
+LIP= 4;
 Z = 40;
 
 shell(WIDTH, LIP, Z);
