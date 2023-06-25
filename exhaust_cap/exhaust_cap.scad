@@ -2,8 +2,8 @@ $fn=40;
 
 LAYER_HEIGHT=1.12;
 
-FROM=95;
-TO=101;
+FROM=94;
+TO=96;
 HEIGHT=30;
 
 LIP_INNER=TO+10;
@@ -16,11 +16,7 @@ difference() {
         linear_extrude(LAYER_HEIGHT) circle(d=LIP_INNER);
     }
 
-    rotate([0,90,0]) union() difference() {
-        cylinder(h=40,d=40,center=true);
-        cylinder(h=40,d=10,center=true);
-    }
+   translate([0,0,LAYER_HEIGHT]) cylinder(h=HEIGHT * 2, d=90);
 }
-
 
 echo(version=version());
