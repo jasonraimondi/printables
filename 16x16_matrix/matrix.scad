@@ -1,8 +1,8 @@
 LAYER_HEIGHT = 0.28;
-BOTTOM_LAYER = LAYER_HEIGHT * 4;
+BOTTOM_LAYER = LAYER_HEIGHT * 2;
 
 MATRIX_X = 162.5;
-MATRIX_Z = 5;
+MATRIX_Z = 5.5;
 
 module flat_bottom() {
     minkowski() {
